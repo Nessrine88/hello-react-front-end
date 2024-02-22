@@ -1,10 +1,10 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-const url = "http://localhost:3000/api/greetings";
+const url = 'http://localhost:3000/api/greetings';
 
 export const fetchGreetings = createAsyncThunk(
-  "message/fetchGreetings",
+  'message/fetchGreetings',
   async (_, { rejectWithValue }) => {
     try {
       const response = await axios.get(url);
@@ -12,16 +12,16 @@ export const fetchGreetings = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(error.message);
     }
-  }
+  },
 );
 
 const initialState = {
-  message: "",
+  message: '',
   isLoading: true,
 };
 
 const messageSlice = createSlice({
-  name: "message",
+  name: 'message',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
@@ -30,8 +30,7 @@ const messageSlice = createSlice({
       state.isLoading = false;
     });
     builder.addCase(fetchGreetings.rejected, (state, action) => {
-      // Handle the rejected case if needed
-      console.error("Error fetching greetings:", action.payload);
+      console.error('Error fetching greetings:', action.payload);
       state.isLoading = false;
     });
   },
